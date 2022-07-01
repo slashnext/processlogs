@@ -36,7 +36,7 @@ def extract_urls_json(data):
                     if isinstance(s_col, str):
                         data = url_pattern_regex.findall(s_col)
                         if data:
-                            list_of_urls.append(data[0])
+                            list_of_urls.extend(data)
     return list_of_urls
 
 
