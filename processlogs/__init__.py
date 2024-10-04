@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 #
 # Copyright (C) SlashNext, Inc. (www.slashnext.com)
@@ -9,17 +10,16 @@
 #
 
 
+
+import azure.functions as func
 import hashlib
 import json
 import logging
 import re
 
-import azure.functions as func
-
 URL_REGEX_PATTERN = r"(?:(?:https?|ftp|hxxps?):\/\/|www\[?\.\]?|ftp\[?\.\]?)(?:(?:[-A-Z0-9_@:%]+?\[?\.\]?)+" \
                     r"[-A-Z0-9]+|(?:[-A-Z0-9_:%]+?@0x[A-Z0-9]{8}))(?::[0-9]+)?\.?(?:(?:\/?|\?)[-A-Z0-9+&@#\/" \
                     r"%=~_$?!:,*'\|\[\].\(\);\^\{\}]*[A-Z0-9+&@#\/%=~_$(*\-\?\|!:\[\]\{\}])?"
-
 
 def extract_urls_json(data):
     """
@@ -83,5 +83,5 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             result = md5_mapping(req_body)
         return func.HttpResponse(json.dumps(result), status_code=200)
     except Exception as err:
-        logging.info('f{err}')
+        logging.error(f"Error: {err}")
         return func.HttpResponse(str(err), status_code=500)
